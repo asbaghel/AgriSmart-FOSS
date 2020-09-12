@@ -48,28 +48,41 @@ const checkLanguageSelection = (dispatch) => async () => {
 const clearErrorMessage = (dispatch) => () => {
   dispatch({type: 'clear_error_message'});
 };
-const signup = (dispatch) => {
-  return async ({email, password}) => {
-    try {
-      const response = await trackerApi.post('/signup', {email, password});
-      await AsyncStorage.setItem('token', response.data.token);
-      dispatch({type: 'signup', payload: response.data.token});
 
+const signup = (dispatch) => {
+
+
+  return async ({phoneno, password}) => {
+    await AsyncStorage.setItem('permanentOTP', (Math.floor(Math.random()*(9999-999) +999).toString()));
+  
+    dispatch({type: 'updatePhoneNo', payload: phoneno});
+
+    dispatch({type: 'getState', payload: ""});
+
+    // now i have farmerRequestJSON
+    console.log("farmerRequestJSON",farmerRequestJSON);
+
+    try {
+      const response = await trackerApi.post('/signup', {phoneno, password});
+      await AsyncStorage.setItem('token', response.data.token);
+      console.log(response);
+      dispatch({type: 'signup', payload: response.data.token});
       navigate('NameInput');
     } catch (err) {
+      console.log(err)
       dispatch({type: 'add_err', payload: 'Something went wrong'});
     }
   };
 };
 
 const signin = (dispatch) => {
-  return async ({email, password}) => {
+  return async ({phoneno, password}) => {
     try {
-      const response = await trackerApi.post('/signin', {email, password});
+      const response = await trackerApi.post('/signin', {phoneno, password});
       await AsyncStorage.setItem('token', response.data.token);
 
       dispatch({type: 'signin', payload: response.data.token});
-      navigate('Home');
+      navigate('NameInput');
     } catch (err) {
       dispatch({
         type: 'add_err',
@@ -80,7 +93,7 @@ const signin = (dispatch) => {
 };
 
 const signout = (dispatch) => async () => {
-  await AsyncStorage.removeItem('token ');
+  await AsyncStorage.removeItem('token');
   dispatch({type: 'signout'});
   navigate('loginFlow');
 };
