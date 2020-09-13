@@ -7,12 +7,14 @@ import FindTransporterScreen from '../screens/FindTransporters';
 import PaymentScreen from '../screens/PaymentScreen';
 import NavigateToFarmerScreen from '../screens/NavigateToFarmerScreen';
 import PoolingFarmerNavigationScreen from '../screens/PoolingFarmerNavigation';
+import talkToBot from '../screens/talkToBot'
 
 const mainFlow = createSwitchNavigator({
  
   farmerFlow: createStackNavigator({
     FarmerHome: FarmerHomeScreen,
     FindTransporter: FindTransporterScreen,
+    ChatBot:talkToBot,
     Payment: PaymentScreen
   },{
     defaultNavigationOptions: {
