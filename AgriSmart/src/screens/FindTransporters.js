@@ -17,6 +17,7 @@ const QuickBookingScreen = () => {
     const [visible, setVisible] = useState(false);
     const book = (mode) =>{
       bookShipping(mode);
+      notify.onPressSendNotification(mode+" Booking Mode", "Booking Confirmed 💯💯");
       setVisible(true);    
     }
     var price = parseInt(distance)*30/1000 + parseInt(weight)*50/100;
@@ -78,6 +79,7 @@ const PoolingScreen = () => {
     
   const book = (mode) =>{
     bookShipping(mode);
+    notify.onPressSendNotification("Pooling Booking Mode", "Booking Confirmed 💯💯");
     setVisible(true);    
   }
 
@@ -168,4 +170,3 @@ const styles = StyleSheet.create({
     maxHeight: 500,
     },
 });
-

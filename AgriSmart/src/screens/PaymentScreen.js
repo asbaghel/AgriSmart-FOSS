@@ -38,7 +38,7 @@ class PaymentScreen extends Component {
       let originApiUrl =
         'https://api.tomtom.com/routing/1/calculateRoute/' +
          + driver['latitude'] +',' + driver['longitude'] + originFarm +
-        '/json?key=xRKxItGb3D5FZQMYh7rTe1YwvKlEmkCZ&computeBestOrder=true';
+        '/json?key=GDmNUPAsOc3i4OPn4PAjRSzTlVplJUo5&computeBestOrder=true';
       var last = {}
       var distance = 0;
       console.log(originApiUrl)
@@ -72,7 +72,7 @@ class PaymentScreen extends Component {
         let destApiUrl =
         'https://api.tomtom.com/routing/1/calculateRoute/' +
          + last['latitude'] +',' + last['longitude'] + destFarm + 
-        '/json?key=xRKxItGb3D5FZQMYh7rTe1YwvKlEmkCZ&computeBestOrder=true';
+        '/json?key=GDmNUPAsOc3i4OPn4PAjRSzTlVplJUo5&computeBestOrder=true';
         
         console.log("called api",destApiUrl);
         

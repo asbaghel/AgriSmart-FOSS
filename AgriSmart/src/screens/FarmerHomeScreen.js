@@ -33,11 +33,11 @@ const FarmerHomeScreen = ({navigation}) => {
     console.log(origin,dest,distance);
   };
   createBooking = (date,weight,index) => {
-    console.log('inside CreateBooking');
+    console.log('indise CreateBooking');
     setVisible(false);
+    notify.onPressSendNotification("Ride With AgriSmart","Searching for available trucks 🚚🚚");
     updateshippingDetails(date,weight,index);
     navigate('FindTransporter',{origin: origin, destination: dest, distance: distance, weight: weight, load: load[selectedIndex-1], date: minMaxPickerState.date});
-    notify.onPressSendNotification("Ride With AgriSmart","Searching for available trucks 🚚🚚");
   };
   
   return (
@@ -65,24 +65,22 @@ const FarmerHomeScreen = ({navigation}) => {
                 }}
           />  
       </TouchableOpacity>
+      <View>
+        <TouchableOpacity style={styles.chatBot} onPress={ () => navigate("ChatBot")}>
+          <Text style={{fontSize:50,alignContent:"center",marginBottom:windowWidth/30}}>🤖</Text>
+        </TouchableOpacity>
+      </View>
       <Button 
         disabled={Object.keys(origin).length === 0 && Object.keys(dest).length === 0 ? true: false}
         style={{alignSelf: "center", position: 'absolute', bottom: 50}}
         onPress = {() => {OriginDest(); updateCoords({origin,dest})}}
       >Confirm Locations</Button>
-           <View>
-
-      <TouchableOpacity style={styles.chatBot} onPress={ () => navigate("ChatBot")}>
-        <Text style={{fontSize:50,alignContent:"center"}}>🤖</Text>
-      </TouchableOpacity>
-      </View>
-      
       <Modal
         visible={visible}
         backdropStyle={{backgroundColor: 'rgba(0, 0, 0, 0.5)'}}
         onBackdropPress={() => setVisible(false)}>
         <Card disabled={true} style = {{ minHeight: 350, minWidth: 300 }}>
-          <Text h4>Select type of load</Text>
+        <Text h4>Select type of load</Text>
           <Select
             status='primary'
             value={load[selectedIndex-1]}
@@ -92,12 +90,12 @@ const FarmerHomeScreen = ({navigation}) => {
             <SelectItem title='Fruit / Vegetable'/>
           </Select>
           <Spacer></Spacer>
-          <Text h4>Enter load name</Text>
+          <Text h4>Enter the name of Load</Text>
           <Input
             autoCapitalize="none"
             autoCorrect={false}
             status='primary'
-            placeholder="Enter load name"
+            placeholder="Enter name of load"
             value={name}
             onChangeText={(newName) => setName(newName)}
           ></Input>
@@ -121,21 +119,15 @@ const FarmerHomeScreen = ({navigation}) => {
             onChangeText={(newWeight) => setWeight(newWeight)}
           ></Input>
           <Spacer></Spacer>
-          
-  
-          <Button disabled={weight && selectedIndex && minMaxPickerState.date ? false: true} onPress={() => {createBooking(minMaxPickerState.date,weight,selectedIndex)}}>
+
+          <Button disabled={weight && name && selectedIndex && minMaxPickerState.date ? false: true} onPress={() => {createBooking(minMaxPickerState.date,weight,selectedIndex)}}>
             Create Booking
           </Button>
-         
         </Card>
       </Modal>
- 
     </View>
   );
 };
-
-export default FarmerHomeScreen;
-
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const styles=StyleSheet.create({
@@ -154,4 +146,4 @@ const styles=StyleSheet.create({
 }
 })
 
-// date food type weight
+export default FarmerHomeScreen;

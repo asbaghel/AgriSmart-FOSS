@@ -8,6 +8,7 @@ import notify from '../services/NotificationService';
 
 
 
+
 //MASTER SCHEMA
  farmerRequestJSON={name:"defaultname",reqActive:true, contactDetails: {
   phoneno: 1234,
@@ -20,7 +21,7 @@ const sendVerificationMessage = (dispatch) => {
       try {
         console.log(otp,phoneno);
         if (phoneno) {
-          console.log(`https://api.textlocal.in/send/?apikey=OghcDXlOpPU-6D7I5qfvmzkhuP7Z98POefuKz0Q3mz&numbers=91${phoneno}&message=Your+AgriSmart+verification+code+is+${otp}&sender=TXTLCL`);
+          // console.log(`https://api.textlocal.in/send/?apikey=OghcDXlOpPU-6D7I5qfvmzkhuP7Z98POefuKz0Q3mz&numbers=91${phoneno}&message=Your+AgriSmart+verification+code+is+${otp}&sender=TXTLCL`);
           var xhr = new XMLHttpRequest();
           xhr.open('GET', `https://api.textlocal.in/send/?apikey=OghcDXlOpPU-6D7I5qfvmzkhuP7Z98POefuKz0Q3mz&numbers=91${phoneno}&message=Your+AgriSmart+verification+code+is+${otp}&sender=TXTLCL`, true); 
           xhr.send();
@@ -98,8 +99,8 @@ const tryLocalSignin = (dispatch) => async () => {
 const checkLanguageSelection = (dispatch) => async () => {
   console.log('INSIDE checkLanguageSelection');
   notify.onPressSendNotification("Welcome to AgriSmart 😊", "Get a ride on demand 🚚");
-  const language = await AsyncStorage.getItem('language');
   
+  const language = await AsyncStorage.getItem('language');
   if (language) {
     console.log('got language', language);
     dispatch({type: 'language', payload: language});
@@ -292,7 +293,6 @@ const signin = (dispatch) => {
 const signout = (dispatch) => async () => {
   console.log("logout");
   notify.onPressSendNotification("Bye Bye!!", "Have a Nice Day");
-
   await AsyncStorage.removeItem('token');
   dispatch({type: 'signout'});
   navigate('loginFlow');
